@@ -6,12 +6,12 @@ document.querySelector('button').addEventListener('click', fetchCocktail)
 
 function fetchCocktail() {
     
-    let drink = document.querySelector('input').value
+    let drink = document.querySelector('input').value.toLowerCase()
 
     fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then(res => res.json()) //parse respone to JSON
     .then(data => {
-        if (drink === data.drinks[0].strDrink.split(' ')[0]) displayDetails(data) 
+        if (drink === data.drinks[0].strDrink.split(' ')[0].toLowerCase()) displayDetails(data) 
         else {
             resetDOM()
             document.querySelector('.displayError').innerText = 'No drink found :(' 
