@@ -5,30 +5,29 @@
 /* Box Model Hack */
 *{
   box-sizing: border-box;
-  /* margin:0; */
-  /* padding:0; */
 }
 
 /******************************************
 /* LAYOUT
 /*******************************************/
-img{
-  display: block;
-  margin: 0 auto;
-  width:200px;
+
+#main {
+  text-align:center;
+  margin-bottom: 1rem;
 }
 
-header, section, h2, h3,p {
-  /* border: 1px solid red; */
+header, .poof, h2, h3, p, img {
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
 }
 
-ul {
+ul,img {
   width: 200px;
   margin: 1rem auto;
 }
+
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/

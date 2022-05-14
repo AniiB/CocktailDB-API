@@ -5,32 +5,48 @@
 document.querySelector('button').addEventListener('click', fetchCocktail)
 
 function fetchCocktail() {
-
-    let ingredientList = document.querySelector('#ingredients')
-    ingredientList.innerText= ''
-    //Take user input value from the DOM
+    
     let drink = document.querySelector('input').value
 
-    //Fetch API
     fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then(res => res.json()) //parse respone to JSON
     .then(data => {
-        console.log(data)
-        //Select the relevant drink object
-        let drinkObj = data.drinks[0]
-        //Display the name
-        document.querySelector('#cocktailName').innerText = drinkObj.strDrink
-        //Display the Image
-        document.querySelector('img').src = drinkObj.strDrinkThumb
-
-        //Looping through every property to check if it is a valid ingredient. Display it if true
-        for(let key in drinkObj) {
-            if(key.includes('strIngredient') && drinkObj[key] !== null ) ingredientList.innerHTML += `<li>${drinkObj[key]}</li>` 
-        }
-
-        //Display Instructions
-        document.querySelector('#instructionsEnglish').innerText = drinkObj.strInstructions 
-
+        displayDetails(data)
     })
     .catch(error => console.log(`error, ${error}`))
 }
+
+function resetDOM() {
+    const drinkName = document.querySelector('#cocktailName')
+    const ingredients = document.querySelector('#ingredients')
+    const instructions = document.querySelector('#instructions')
+
+    drinkName.innerText = ''
+    ingredients.innerText = ''
+    instructions.innerText = ''
+
+    document.querySelector('section + section').classList.add('hidden')
+}
+
+function displayDetails(data) {
+    resetDOM()
+    const drinkName = document.querySelector('#cocktailName')
+    const drinkImg = document.querySelector('img')
+    const ingredients = document.querySelector('#ingredients')
+    const instructions = document.querySelector('#instructions')
+
+    let drinkObj = data.drinks[0]
+
+    document.querySelector('section + section').classList.remove('hidden')
+
+    drinkName.innerText = drinkObj.strDrink
+    drinkImg.src = drinkObj.strDrinkThumb
+    instructions.innerText = drinkObj.strInstructions 
+
+    for(let key in drinkObj) {
+        if(key.includes('strIngredient') && drinkObj[key] !== null ) ingredients.innerHTML += `<li>${drinkObj[key]}</li>` 
+    }
+
+ 
+}
+        
