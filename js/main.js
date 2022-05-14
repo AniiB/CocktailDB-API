@@ -11,16 +11,22 @@ function fetchCocktail() {
     fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then(res => res.json()) //parse respone to JSON
     .then(data => {
-        displayDetails(data)
+        if (drink === data.drinks[0].strDrink.split(' ')[0]) displayDetails(data) 
+        else {
+            resetDOM()
+            document.querySelector('.displayError').innerText = 'No drink found :(' 
+        }
     })
     .catch(error => console.log(`error, ${error}`))
 }
 
 function resetDOM() {
+    document.querySelector('section + section').classList.add('hidden')
+    document.querySelector('.displayError').innerText = ''
     const ingredients = document.querySelector('#ingredients')
     ingredients.innerText = ''
 
-    document.querySelector('section + section').classList.add('hidden')
+    
 }
 
 function displayDetails(data) {
