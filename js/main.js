@@ -17,13 +17,8 @@ function fetchCocktail() {
 }
 
 function resetDOM() {
-    const drinkName = document.querySelector('#cocktailName')
     const ingredients = document.querySelector('#ingredients')
-    const instructions = document.querySelector('#instructions')
-
-    drinkName.innerText = ''
     ingredients.innerText = ''
-    instructions.innerText = ''
 
     document.querySelector('section + section').classList.add('hidden')
 }
@@ -46,7 +41,5 @@ function displayDetails(data) {
     for(let key in drinkObj) {
         if(key.includes('strIngredient') && drinkObj[key] !== null ) ingredients.innerHTML += `<li>${drinkObj[key]}</li>` 
     }
-
- 
 }
         
