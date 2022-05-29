@@ -1,61 +1,67 @@
-let btn = document.querySelector('button')
-btn.addEventListener('click', fetchCocktail)
+document.querySelector('form').addEventListener('submit', (e) => {
+    document.querySelector('.card').style.opacity = 0;
+    document.querySelector('.card').style.visiblity = `hidden`
+    e.preventDefault()
+    setTimeout(fetchCocktail, 850)
+})
 
 function fetchCocktail() {
-    let drink = document.querySelector('input').value.toLowerCase()
-
-    fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
-    .then(res => res.json()) //parse respone to JSON
-    .then(data => {
-        if (drink === data.drinks[0].strDrink.split(' ')[0].toLowerCase()) {
-            displayDetails(data) 
-        }
-        else {
-            resetDOM()
-            document.querySelector('.displayError').innerText = 'No drink found :(' 
-        }
-    })
-    .catch(error => console.log(`error, ${error}`))
-}
-
-function resetDOM() {
-    document.querySelector('.displayError').innerText = ''
-    document.querySelector('#ingredients').innerText = ''
-}
-      
-function displayDetails(data) {
-    const drinkName = document.querySelector('#cocktailName')
-    const drinkImg = document.querySelector('img')
-    const ingredients = document.querySelector('#ingredients')
-    const instructions = document.querySelector('#instructions')
-    const instrHeading = document.querySelector('.instructionsHeading')
-    const ingreHeading = document.querySelector('.ingredientsHeading')
     let i = 0
-    let drinkArray = data.drinks
+    let userInput = document.querySelector('input').value.toLowerCase()
+    if (userInput === '')return
+    const cocktailName = document.querySelector('#cocktailName')
+    const cocktailImage = document.querySelector('img')
+    const ingredientList = document.querySelector('.ingredients')
+    const instructionList = document.querySelector('.instructions')
+    const card = document.querySelector('.card')
+    clearSlide()
 
-    slideShow()
+    fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${userInput}`)
+        .then(res => res.json()) //parse respone to JSON
+        .then(data => {
+            let drinkArray = Array.from(data.drinks)
+            displaySlide(drinkArray)
+        })
+        .catch(error => console.log(`error, ${error}`))
 
-    function slideShow() {
-        drinkName.innerText = drinkArray[i].strDrink
-        drinkImg.src = drinkArray[i].strDrinkThumb
-        
-        ingredients.innerText = ''
-        ingreHeading.innerText = `Ingredients`
-        for (let key in drinkArray[i]) {
-            if(key.includes('strIngredient') && (drinkArray[i][key] !== null && drinkArray[i][key] !== '')) {
-                ingredients.innerHTML += `<li>${drinkArray[i][key]}</li>`
+    function clearSlide() {
+        document.querySelector('.card').style.opacity = 0;
+        document.querySelector('.card').style.visiblity = `hidden`
+        cocktailName.innerText = ''
+        cocktailImage.src = ''
+        ingredientList.innerText = ''
+        instructionList.innerText = ''
+    }
+    function displaySlide(drinkArray) {
+        let drink = drinkArray[0]
+        card.style.visibility = `visible`
+        cocktailName.innerText = drink.strDrink
+        cocktailImage.src = drink.strDrinkThumb
+
+        displayIngredients(drink)
+        let instr = drink.strInstructions.split('. ')
+        displayInstructions(instr)
+
+        card.style.opacity = 1
+    }
+    function displayIngredients(drink) {
+        for (let keys in drink) {
+
+            if (keys.includes('strIngredient') && drink[keys] !== null && drink[keys] !== '' && drink[keys] !== undefined) {
+                let listItem = document.createElement('li')
+                let listText = document.createTextNode(`${drink[keys]}`)
+                listItem.appendChild(listText)
+                ingredientList.appendChild(listItem)
             }
         }
-        instrHeading.innerText = `Instructions`
-        instructions.innerText = drinkArray[i].strInstructions
+    }
+    function displayInstructions(instr) {
+        for (let i = 0; i < instr.length; i++) {
+            let listItem = document.createElement('li')
+            let listText = document.createTextNode(`${instr[i]}.`)
+            listItem.appendChild(listText)
+            instructionList.appendChild(listItem)
+        }
 
-        if(i < drinkArray.length-1) i++
-        else i=0
-    
-       timeO = setTimeout(slideShow, 3000)
-    
-       btn.addEventListener('click', () => {
-        clearTimeout(timeO)
-        })
     }
 }

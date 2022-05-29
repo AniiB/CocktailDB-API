@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    	<meta charset="utf-8">
-    	<meta name="description" content="This is where your description goes">
-    	<meta name="keywords" content="one, two, three">
 
-		<title>Title in the tab</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="This is where your description goes">
+	<meta name="keywords" content="one, two, three">
 
-		<!-- external CSS link -->
-		<link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
-		<h1>Which Cocktail?</h1>
+	<title>Bartender's Handbook</title>
 
-		<section id ="main">
-			<input type="text" name="" value="">
-			<button type="button" name="cocktail">Get Cocktail</button>
-			<p class = 'displayError'></p>
+	<!-- external CSS link -->
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<h1>The Bartender's Handbook</h1>
+	<form>
+		<input type="text" value="">
+		<button type="submit" name="cocktail">Search Cocktail</button>
+	</form>
+
+	<section class="card">
+		<h2 id="cocktailName"></h2>
+
+		<section class="slide">
+			<section class="image">
+				<img src="" alt="">
+			</section>
+
+			<section class="data">
+				<h3>Ingredient List</h3>
+				<ul class="ingredients"></ul>
+
+				<h3>Instructions</h3>
+				<ul class="instructions"></ul>
+			</section>
 		</section>
 
-		<section class ="poof hidden">
-			<h2 id = "cocktailName"></h2>
+	</section>
 
-			<img src="" alt="">
-	
-			<h3>Ingredient List</h3>
-			<ul id ='ingredients'>
-			</ul>
-	
-			<h3>Instructions</h3>
-			<p id ="instructions"></p>
-		</section>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
 
-		<script type="text/javascript" src="js/main.js"></script>
-	</body>
 </html>
