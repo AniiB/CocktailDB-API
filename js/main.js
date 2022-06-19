@@ -6,8 +6,11 @@ document.querySelector('form').addEventListener('submit', (e) => {
 })
 
 function fetchCocktail() {
+    let prevInput
     let i = 0
     let userInput = document.querySelector('input').value.toLowerCase()
+    if(prevInput == userInput) return
+    else prevInput = userInput
     if (userInput === '')return
     const cocktailName = document.querySelector('#cocktailName')
     const cocktailImage = document.querySelector('img')
