@@ -1,5 +1,8 @@
 # The Bartender's Handbook: <a href="https://bartenders-handbook.netlify.app/" target="_blank">Check it out here!</a>
-<a href="https://bartenders-handbook.netlify.app/" target="_blank"><img src="https://i.giphy.com/media/TCiy0056MrGR60b7m8/giphy.webp" /></a>
+
+<a href="https://bartenders-handbook.netlify.app/" target="_blank">
+  ![firefox_PIvdXEhM7F](https://user-images.githubusercontent.com/96686113/174483195-b3ee9fb5-2753-43c0-bfeb-ac23b2eac0cc.gif)
+</a>
 
 "How do I make that drink?!"
 "Look up The Baretnder's Handbook"
